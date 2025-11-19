@@ -40,6 +40,21 @@ public:
             update(idx, val, 2 * i + 1, mid + 1, r);
         tree[i] = tree[2 * i] + tree[2 * i + 1];
     }
+
+    long long RangeSum(int start, int end, int idx, int l, int r)
+    {
+        // Completely outside range
+        if (l > end || r < start)
+            return 0;
+
+        // Completely inside range
+        if (l >= start && r <= end)
+            return tree[idx];
+
+        int mid = (l + r) / 2;
+
+        return RangeSum(start, end, 2 * idx, l, mid) + RangeSum(start, end, 2 * idx + 1, mid + 1, r);
+    }
 };
 
 int main()
@@ -49,5 +64,6 @@ int main()
     SegmentTree st(arr.size());
     st.BuildTree(arr, 1, 0, arr.size() - 1);
     st.update(3, 10, 1, 0, arr.size() - 1);
+    long long res = st.RangeSum(2, 5, 1, 0, arr.size() - 1);
     return 0;
 }
