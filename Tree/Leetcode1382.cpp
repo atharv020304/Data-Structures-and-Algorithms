@@ -1,3 +1,5 @@
+
+// inorder traversal array -> then build the tree using mid logic.
 class Solution {
 public:
     vector<TreeNode*> arr;
