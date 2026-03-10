@@ -13,7 +13,8 @@ public:
         function<int(int)> find=[&](int a){
             if(par[a]==a)return a;
             else return par[a]=find(par[a]);
-        };
+        }; 
+        
         function<void(int,int b)> union_=[&](int a,int b){
            if(a>b){ swap(a,b);}
            int A=find(a);
