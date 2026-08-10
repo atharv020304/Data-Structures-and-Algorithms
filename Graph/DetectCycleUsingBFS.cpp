@@ -29,7 +29,35 @@ public:
 
         return false;
     }
+    
+    bool dfs(int s, vector<int> adj[], vector<bool>& visited)
+    {
+    stack<pair<int, int>> st;
 
+    visited[s] = true;
+    st.push({s, -1});
+
+    while (!st.empty())
+    {
+        auto [node, parent] = st.top();
+        st.pop();
+
+        for (auto ele : adj[node])
+        {
+            if (!visited[ele])
+            {
+                visited[ele] = true;
+                st.push({ele, node});
+            }
+            else if (ele != parent)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+    }
     bool isCycle(int V, vector<int> adj[])
     {
         vector<bool> visited(V, false);
@@ -38,7 +66,7 @@ public:
         {
             if (!visited[i])
             {
-                if (helper(i, adj, visited))
+                if (dfs(i, adj, visited))
                     return true;
             }
         }
