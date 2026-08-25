@@ -11,31 +11,23 @@
  */
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> ans;
-        queue<TreeNode*> que;
-        if(root == NULL){
-            return ans;
+    int ans = 0;
+    int helper(TreeNode* root)
+    {
+        if(root == nullptr)
+        {
+            return 0;
         }
-        que.push(root);
-        while(!que.empty()){
-            int size = que.size();
-            vector<int> level;
-            for(int i = 0 ; i < size;i++){
-                TreeNode* temp = que.front();
-                que.pop();
-                level.push_back(temp->val);
 
-                if(temp->left){
-                que.push(temp->left);
-            }
-            if(temp->right){
-                que.push(temp->right);
-            }
-            }
-            
-            ans.push_back(level);
-        }
+        int leftm = helper(root->left);
+        int rightm = helper(root->right);
+
+        ans = max(ans, leftm + rightm);
+
+        return 1 + max(leftm, rightm);
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        helper(root);
         return ans;
     }
 };
